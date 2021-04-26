@@ -92,19 +92,17 @@ export default Component.extend({
       cache: false
     }).then(result => {
       const newRaw = result.raw.replace(
-        /\[wrap=excalidraw\]\n(.*)\n\[\/wrap\]/gs,
+        /\[wrap=excalidraw\]\n```\n(.*)\n```\n\[\/wrap\]/gs,
         (match, ignored, off) => {
           const pick = (obj, ...args) => ({
             ...args.reduce((res, key) => ({ ...res, [key]: obj[key] }), {})
           });
 
           return (
-            "[wrap=excalidraw]\n" +
+            "[wrap=excalidraw]\n```\n" +
             JSON.stringify(
               {
-                elements: this._ref.current.getSceneElements().map(x => {
-                  return Object.assign({}, x, { groupIds: null });
-                }),
+                elements: this._ref.current.getSceneElements(),
                 appState: Object.assign(
                   {},
                   pick(
@@ -138,7 +136,7 @@ export default Component.extend({
               null,
               2
             ) +
-            "\n[/wrap]"
+            "\n```\n[/wrap]"
           );
         }
       );
