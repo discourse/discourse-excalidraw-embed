@@ -102,7 +102,9 @@ export default Component.extend({
             "[wrap=excalidraw]\n" +
             JSON.stringify(
               {
-                elements: this._ref.current.getSceneElements(),
+                elements: this._ref.current.getSceneElements().map(x => {
+                  return Object.assign({}, x, { groupIds: null });
+                }),
                 appState: Object.assign(
                   {},
                   pick(
