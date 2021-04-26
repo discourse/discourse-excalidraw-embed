@@ -1,0 +1,60 @@
+.d-wrap[data-wrap="excalidraw"] {
+  height: 750px;
+  display: flex;
+  border: 1px solid var(--primary-low);
+  flex-direction: column;
+
+  .excalidraw {
+    overflow: visible;
+
+    .layer-ui__wrapper__github-corner,
+    .tooltip.encrypted-icon,
+    .ToolIcon_type_button__library,
+    .ToolIcon__lock {
+      display: none;
+    }
+
+    label {
+      margin-bottom: 0;
+    }
+
+    .App-menu_bottom {
+      position: absolute;
+      top: -44px;
+      margin-left: -3px;
+
+      &.zen-mode-transition.App-menu_bottom--transition-left {
+        display: none;
+      }
+
+      .Island {
+        background: none;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+
+  .excalidraw-container {
+    flex-direction: column;
+  }
+
+  .excalidraw-container,
+  .excalidraw-toolbar-container,
+  .excalidraw-canvas-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .excalidraw-toolbar-container {
+    padding: 5px;
+    height: auto;
+    justify-content: flex-end;
+
+    .btn {
+      margin-left: 0.5em;
+    }
+  }
+}
