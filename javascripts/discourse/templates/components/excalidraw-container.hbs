@@ -4,12 +4,9 @@
   {{else}}
     <div class="excalidraw-toolbar-container">
       {{#if postModel.can_edit}}
-      {{#unless isEditing}}
-        {{d-button
-          icon="pencil-alt"
-          action=(action "onEdit")
-        }}
-      {{/unless}}
+        {{#unless isEditing}}
+          {{d-button icon="pencil-alt" action=(action "onEdit")}}
+        {{/unless}}
       {{/if}}
 
       {{d-button

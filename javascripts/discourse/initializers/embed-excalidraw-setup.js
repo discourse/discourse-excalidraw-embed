@@ -1,11 +1,10 @@
-import { popupAjaxError } from "discourse/lib/ajax-error";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default {
   name: "embed-excalidraw",
 
   initialize() {
-    withPluginApi("0.11.1", api => {
+    withPluginApi("0.11.1", (api) => {
       api.decorateCookedElement(
         (element, postDecorator) => {
           const draw = element.querySelector(".d-wrap[data-wrap=excalidraw]");
@@ -26,15 +25,15 @@ export default {
             .factoryFor("component:excalidraw-container")
             .create({
               scene,
-              postModel
+              postModel,
             });
           component.renderer.appendTo(component, draw);
         },
         {
           onlyStream: true,
-          id: "embed-excalidraw"
+          id: "embed-excalidraw",
         }
       );
     });
-  }
+  },
 };

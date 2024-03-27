@@ -1,8 +1,10 @@
-import { action } from "@ember/object";
-import loadScript from "discourse/lib/load-script";
-import { ajax } from "discourse/lib/ajax";
+/* global Excalidraw, React, ReactDOM */
 import Component from "@ember/component";
+import { action } from "@ember/object";
 import { schedule } from "@ember/runloop";
+import { ajax } from "discourse/lib/ajax";
+import loadScript from "discourse/lib/load-script";
+import I18n from "discourse-i18n";
 
 export default Component.extend({
   tagName: "",
@@ -48,9 +50,7 @@ export default Component.extend({
       }
 
       const excalidrawCanvasContainer = document.querySelector(
-        `article[data-post-id="${
-          this.postModel.id
-        }"] .excalidraw-canvas-container`
+        `article[data-post-id="${this.postModel.id}"] .excalidraw-canvas-container`
       );
 
       if (excalidrawCanvasContainer) {
@@ -66,9 +66,9 @@ export default Component.extend({
           UIOptions: {
             canvasActions: {
               saveScene: true,
-              saveAsScene: true
-            }
-          }
+              saveAsScene: true,
+            },
+          },
         });
 
         ReactDOM.render(excalidrawComponent, excalidrawCanvasContainer);
@@ -89,13 +89,13 @@ export default Component.extend({
 
     return ajax(`/posts/${this.postModel.id}`, {
       type: "GET",
-      cache: false
-    }).then(result => {
+      cache: false,
+    }).then((result) => {
       const newRaw = result.raw.replace(
         /\[wrap=excalidraw\]\n```\n(.*)\n```\n\[\/wrap\]/gs,
-        (match, ignored, off) => {
+        () => {
           const pick = (obj, ...args) => ({
-            ...args.reduce((res, key) => ({ ...res, [key]: obj[key] }), {})
+            ...args.reduce((res, key) => ({ ...res, [key]: obj[key] }), {}),
           });
 
           return (
@@ -131,7 +131,7 @@ export default Component.extend({
                     "scrollY"
                   ),
                   { viewModeEnabled: true }
-                )
+                ),
               },
               null,
               2
@@ -143,7 +143,7 @@ export default Component.extend({
 
       const save = this.postModel.save({
         raw: newRaw,
-        edit_reason: I18n.t(themePrefix("excalidraw.edit_reason"))
+        edit_reason: I18n.t(themePrefix("excalidraw.edit_reason")),
       });
 
       if (save && save.then) {
@@ -152,5 +152,5 @@ export default Component.extend({
         this.set("isSavingScene", false);
       }
     });
-  }
+  },
 });
