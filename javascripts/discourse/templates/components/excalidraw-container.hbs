@@ -1,10 +1,10 @@
 <div class="excalidraw-container">
-  {{#if isLoadingReact}}
+  {{#if this.isLoadingReact}}
     <div class="spinner"></div>
   {{else}}
     <div class="excalidraw-toolbar-container">
-      {{#if postModel.can_edit}}
-        {{#unless isEditing}}
+      {{#if this.postModel.can_edit}}
+        {{#unless this.isEditing}}
           {{d-button icon="pencil-alt" action=(action "onEdit")}}
         {{/unless}}
       {{/if}}
@@ -13,7 +13,7 @@
         label="save"
         class="btn-primary"
         action=(action "onSave")
-        isLoading=isSavingScene
+        isLoading=this.isSavingScene
       }}
     </div>
     <div class="excalidraw-canvas-container"></div>
