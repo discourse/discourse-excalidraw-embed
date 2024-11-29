@@ -2,23 +2,23 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { schedule } from "@ember/runloop";
+import { tagName } from "@ember-decorators/component";
 import { ajax } from "discourse/lib/ajax";
 import loadScript from "discourse/lib/load-script";
 import I18n from "discourse-i18n";
 
-export default Component.extend({
-  tagName: "",
-  layoutName: "components/excalidraw-container",
-  postModel: null,
-  isEditing: false,
-  isLoadingReact: false,
-  isSavingScene: false,
-  scene: null,
-  viewModeEnabled: true,
-  _ref: null,
+@tagName("")
+export default class ExcalidrawContainer extends Component {
+  postModel = null;
+  isEditing = false;
+  isLoadingReact = false;
+  isSavingScene = false;
+  scene = null;
+  viewModeEnabled = true;
+  _ref = null;
 
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
 
     this.set("isLoadingReact", true);
 
@@ -41,7 +41,7 @@ export default Component.extend({
           });
       });
     });
-  },
+  }
 
   _renderExcalidraw() {
     schedule("afterRender", () => {
@@ -74,14 +74,14 @@ export default Component.extend({
         ReactDOM.render(excalidrawComponent, excalidrawCanvasContainer);
       }
     });
-  },
+  }
 
   @action
   onEdit() {
     this.set("isEditing", true);
 
     this._renderExcalidraw();
-  },
+  }
 
   @action
   onSave() {
@@ -152,5 +152,5 @@ export default Component.extend({
         this.set("isSavingScene", false);
       }
     });
-  },
-});
+  }
+}
